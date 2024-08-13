@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookstore-borrowing-app-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: borrowing-service-app
+  template:
+    metadata:
+      labels:
+        app: borrowing-service-app
+    spec:
+      containers:
+      - name: borrowing-service
+        image: nghialoe/borrowing-service:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: RabbitMQ__Host
+          value: "amqp://rabbitmq-service"
+        - name: RabbitMQ__Username
+          value: "guest"
+        - name: RabbitMQ__Password
+          value: "guest"
+        - name: MongoDb__LocalConnectionString
+          value: "mongodb://mongodb-service"
+          name: MongoDb__DatabaseName__BookStore
+          value: BookStore
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: borrowing-service-lb
+spec:
+  selector:
+    app: borrowing-service-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: NodePort
