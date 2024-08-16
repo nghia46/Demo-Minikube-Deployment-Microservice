@@ -59,6 +59,7 @@ builder.Services.AddMassTransit(x =>
 // MassTransit hosted service is added automatically, no need to manually start the bus
 #endregion
 
+builder.Configuration.AddEnvironmentVariables();
 var app = builder.Build();
 
 #region Middleware Configuration

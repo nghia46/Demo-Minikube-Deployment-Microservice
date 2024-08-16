@@ -83,6 +83,7 @@ builder.Services.AddMassTransit(x =>
 builder.Services.AddHostedService<MassTransitHostedService>();
 
 #endregion
+builder.Configuration.AddEnvironmentVariables();
 
 var app = builder.Build();
 

@@ -18,16 +18,21 @@ spec:
         ports:
         - containerPort: 80
         env:
-        - name: RabbitMQ__Host
-          value: "amqp://rabbitmq-service"
-        - name: RabbitMQ__Username
-          value: "guest"
-        - name: RabbitMQ__Password
-          value: "guest"
-        - name: MongoDb__LocalConnectionString
-          value: "mongodb://mongodb-service"
-          name: MongoDb__DatabaseName__BookStore
-          value: BookStore
+          - name: RabbitMQ__Host
+            valueFrom:
+              configMapKeyRef:
+                name: bookstore-config
+                key: RabbitMQ__Host
+          - name: RabbitMQ__Username
+            valueFrom:
+              configMapKeyRef:
+                name: bookstore-config
+                key: RabbitMQ__Username
+          - name: RabbitMQ__Password
+            valueFrom:
+              configMapKeyRef:
+                name: bookstore-config
+                key: RabbitMQ__Password
 ---
 apiVersion: v1
 kind: Service
