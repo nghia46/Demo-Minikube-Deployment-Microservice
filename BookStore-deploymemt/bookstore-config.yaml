@@ -3,8 +3,21 @@ kind: ConfigMap
 metadata:
   name: bookstore-config
 data:
-  RabbitMQ__Host: "amqp://rabbitmq-services"
-  RabbitMQ__Username: "guest"
-  RabbitMQ__Password: "guest"
-  MongoDb__LocalConnectionString: "mongodb://mongodb-service"
-  MongoDb__DatabaseName__BookStore: "BookStore"
+  appsettings.json: |-
+    {
+      "MongoDb": {
+        "ConnectionString": "",
+        "LocalConnectionString": "mongodb://mongodb-service",
+        "DatabaseName": {
+          "BookStore": "BookStore"
+        }
+      },
+      "RabbitMq": {
+        "Host": "amqp://rabbitmq-service",
+        "Username": "guest",
+        "Password": "guest",
+        "Queues": {
+          "Borrowing": "borrowing-queue"
+        }
+      }
+    }

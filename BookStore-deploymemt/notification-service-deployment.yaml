@@ -17,22 +17,15 @@ spec:
         image: nghialoe/notification-service:latest
         ports:
         - containerPort: 80
-        env:
-          - name: RabbitMQ__Host
-            valueFrom:
-              configMapKeyRef:
-                name: bookstore-config
-                key: RabbitMQ__Host
-          - name: RabbitMQ__Username
-            valueFrom:
-              configMapKeyRef:
-                name: bookstore-config
-                key: RabbitMQ__Username
-          - name: RabbitMQ__Password
-            valueFrom:
-              configMapKeyRef:
-                name: bookstore-config
-                key: RabbitMQ__Password
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config/appsettings.json
+          subPath: appsettings.json
+      volumes:
+      - name: config-volume
+        configMap:
+          name: bookstore-config
+
 ---
 apiVersion: v1
 kind: Service
@@ -45,4 +38,4 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8080
-  type: NodePort
+  type: LoadBalancer

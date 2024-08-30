@@ -36,8 +36,6 @@ builder.Services.AddCors(options =>
 });
 #endregion
 
-
-
 #region Swagger
 
 builder.Services.AddSwaggerGen(c =>
@@ -67,7 +65,7 @@ builder.Services.AddMassTransit(x =>
         // Thiết lập Retry
         cfg.UseRetry(retryConfig =>
         {
-            retryConfig.Interval(5, TimeSpan.FromSeconds(10)); // Thử lại 5 lần, mỗi lần cách nhau 10 giây
+            retryConfig.Interval(5, TimeSpan.FromSeconds(5)); // Thử lại 5 lần, mỗi lần cách nhau 10 giây
         });
 
         // Tùy chọn khác như Timeout, CircuitBreaker nếu cần
