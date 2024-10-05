@@ -21,8 +21,7 @@ builder.Services.AddScoped<IBorrowingRequestRepository, BorrowingRequestReposito
 
 #region  defaultService
 builder.Services.AddSingleton(builder.Configuration);
-builder.Configuration.AddJsonFile($"appsettings.json");
-
+builder.Configuration.AddJsonFile("/app/config/appsettings.json", optional: true, reloadOnChange: true);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors(options =>

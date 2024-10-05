@@ -13,7 +13,7 @@ data:
         }
       },
       "RabbitMq": {
-        "Host": "amqp://rabbitmq-service",
+        "Host": "amqp://rabbitmq-service-lb",
         "Username": "guest",
         "Password": "guest",
         "Queues": {
